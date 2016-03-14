@@ -1,0 +1,12 @@
+{% ckan_extends %}
+{% block header_account_logged %}
+  {% if c.userobj.sysadmin %}
+    <li>
+      <a href="{% url_for 'yaka-admin' %}" title="{{ _('Yaka Rocket') }}">
+        <i class="icon-rocket" aria-hidden="true"></i>
+        <span class="text">{{ _('Yaka Rocket') }}</span>
+      </a>
+    </li>
+  {% endif %}
+  {{ super() }}
+{% endblock %}

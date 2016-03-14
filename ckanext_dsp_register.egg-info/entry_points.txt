@@ -1,0 +1,4 @@
+
+        [ckan.plugins]
+        dsp_register=ckanext.dsp_register.plugin:Dsp_RegisterPlugin
+    

@@ -1,0 +1,46 @@
+{% extends "yaka-admin/config.html" %}
+
+{% import "macros/form.html" as form %}
+
+
+{% block primary_content_inner %}
+
+<ol class="stages stage-1">
+  <li class="first complete">
+
+      <span class="highlight">連結DSP帳號</span>
+
+  </li>
+  <li class="last active">
+
+      <span class="highlight">註冊Yaka平台</span>
+
+  </li>
+</ol>
+
+
+{% if Registered %}
+ <div class="alert alert-success">
+     您已成功註冊本Yaka平台。
+</div>
+
+{% endif %}
+
+
+
+  <form method='post' class="form-horizontal" id="admin-config-form">
+    {% block admin_form %}
+      {{ form.input('company', label="公司/組織名稱",  value=data.company, error=errors.company) }}
+      {% call form.input('site_url', label="平台"+_('URL'), type="url",  value=data.site_url,  error=errors.site_url) %}
+         {{ form.info(_('網址必須以"http://"為開頭'), inline=true) }}
+      {% endcall %}
+      {{ form.input('phone', label="聯絡電話", type="tel",  value=data.phone,  error=errors.phone) }}
+      {{ form.input('email', label=_('Email'), type="email",  value=data.email, error=errors.email) }}
+      {{ form.textarea('note', label=_('Description'),  value=data.note) }}
+    {% endblock %}
+    <div class="form-actions">
+        <a href="{% url_for 'dsp-connect' %}" class="btn btn-danger pull-left">{{ _("上一步") }}</a>
+      <button type="submit" class="btn btn-primary" name="save" {# 'disabled' if Registered else '' #} >{{ _('Register') }}</button>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "yaka-admin/config.html" %}
+{% import "macros/form.html" as form %}
+
+{% block primary_content_inner %}
+<div data-module="dsp_register">
+<ol class="stages stage-1">
+  <li class="first active">
+
+      <span class="highlight">連結DSP帳號</span>
+
+  </li>
+  <li class="last uncomplete">
+
+      <span class="highlight">註冊Yaka平台</span>
+
+  </li>
+</ol>
+
+  {{ form.errors(error_summary) }}
+{% if Connected %}
+ <div class="alert alert-success">
+     您已成功連結帳號至DSP資料中心。
+</div>
+{% else %}
+
+ <div class="alert alert-info">
+     沒有<a href="http://data.dsp.im/">DSP資料中心</a>的帳號？ 立即<a  data-toggle="modal" data-target="#registerModal" href="#">註冊</a>！
+</div>
+{% endif %}
+
+<div class="modal hide" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="registerModalLabel">申請DSP資料中心帳號</h3>
+      </div>
+      <div class="modal-body">
+          <form id="dsp-register" class="form-horizontal">
+              <div class="alert alert-error"  style="display: none;"  id="registerModalErr">
+      <p>The form contains invalid entries:</p>
+      <ul>
+
+      </ul>
+    </div>
+  {{ form.input("name", id="field-username", label=_("Username"), placeholder=_("username"), value=data.name, error=errors.name, classes=["control-medium"]) }}
+  <!--{{ form.input("fullname", id="field-fullname", label=_("Full Name"), placeholder=_("Joe Bloggs"), value=data.fullname, error=errors.fullname, classes=["control-medium"]) }}-->
+  {{ form.input("email", id="field-email", label=_("Email"), type="email", placeholder=_("joe@example.com"), value=data.email, error=errors.email, classes=["control-medium"]) }}
+  {{ form.input("password1", id="field-password", label=_("Password"), type="password", placeholder="••••••••", value=data.password1, error=errors.password1, classes=["control-medium"]) }}
+  {{ form.input("password2", id="field-confirm-password", label=_("Confirm"), type="password", placeholder="••••••••", value=data.password2, error=errors.password1, classes=["control-medium"]) }}
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('Close') }}</button>
+        <button type="submit" form="dsp-register" class="btn btn-primary">{{ _('Register') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="dsp-connect" class="form-horizontal" action="" method="post">
+    {% call form.input('username', label='DSP '+_('Username'), value=data.username, error=errors.username) %}
+    {% endcall %}
+    {% call form.input('api_key', label=_('API Key'), value=data.api_key, error=errors.api_key) %}
+        {{ form.info(_('您可以於DSP資料中心（http://data.dsp.im/）的個人使用者頁面，取得您的API Key。')) }}
+    {% endcall %}
+  <div class="form-actions">
+    {% block form_actions %}
+      <a href="{% url_for 'dsp_disconnect' %}" class="btn btn-danger pull-left">{{ _("Reset") }}</a>
+      <button class="btn btn-primary" type="submit" name="save">下一步</button>
+    {% endblock %}
+  </div>
+</form>
+</div>
+
+{% resource 'dsp_register/dsp_register.js' %}
+
+{% endblock %}

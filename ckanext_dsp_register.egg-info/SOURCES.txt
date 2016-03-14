@@ -1,0 +1,16 @@
+MANIFEST.in
+README.rst
+setup.py
+ckanext/__init__.py
+ckanext/dsp_register/__init__.py
+ckanext/dsp_register/controllers.py
+ckanext/dsp_register/plugin.py
+ckanext/dsp_register/templates/page.html
+ckanext/dsp_register/templates/register.html
+ckanext/dsp_register/tests/__init__.py
+ckanext/dsp_register/tests/test_plugin.py
+ckanext_dsp_register.egg-info/PKG-INFO
+ckanext_dsp_register.egg-info/SOURCES.txt
+ckanext_dsp_register.egg-info/dependency_links.txt
+ckanext_dsp_register.egg-info/entry_points.txt
+ckanext_dsp_register.egg-info/top_level.txt

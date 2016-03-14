@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block flash_inner %}
+{% if not h.registered() %}
+<div class="alert fade in alert-warning">
+ 歡迎使用DSP Yaka。在開始使用本平台之前，請先 <a href="{{ h.url_for(controller='ckanext.dsp_register.controllers:MainController', action='dsp_connect') }}">註冊Yaka平台</a>。
+</div>
+{% endif %}
+{{ super() }}
+{% endblock %}
